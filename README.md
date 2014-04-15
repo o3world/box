@@ -1,7 +1,6 @@
 base-box
 ====
 
-----
 **CentOS 6.5 64-bit LAMP**
 
 ----
