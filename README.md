@@ -13,18 +13,18 @@ a **CentOS** virtual machine ideal for local development
 
 Connectivity to VM's servers, **from Host**:
 
-* add to /etc/hosts -- `192.168.200.2 local`
+* add to */etc/hosts* -- `192.168.200.2 local`
 * NFS-sync'd folder created by Vagrant -- `/sync`
 * database -- `mysql -h192.168.200.2 -uroot -pvagrant`
 
 To add an *additional* Apache **VirtualHost**:
 
-* add to /etc/hosts -- `192.168.200.2 example.local`
-* vhost configuration -- `/sync/conf.d/example.local.conf`
+* add to */etc/hosts* -- `192.168.200.2 example.local`
+* *VirtualHost* definition -- `/sync/conf.d/example.local.conf`
 * `vagrant ssh`
 * `sudo service httpd restart`
 
-This virtual machine is repackaged as `base.box`
+This virtual machine is packaged as `base.box`
 and maintained at [vagrantcloud.com/o3world/base](https://vagrantcloud.com/o3world/base)
 
 To use it, just:
@@ -34,3 +34,18 @@ To use it, just:
 Once running, if the services need to be restarted, use:
 
 `sudo sh /etc/startup.sh`
+
+----
+
+A second machine for **Laravel** development is also in place.
+
+* *vhost* should already exist  -- `/sync/conf.d/laravel.local.conf`
+* add to */etc/hosts* -- `192.168.200.2 laravel
+* `vagrant up laravel`
+* `vagrant ssh laravel`
+* `sudo sh /etc/startup.sh`
+* [laravel.local](http://laravel.local) should display "You have arrived."
+
+Laravel's **artisan** command-line utility may be used within a `vagrant ssh` session.
+
+This VM is packaged as `laravel.box` and maintained at [vagrantcloud.com/o3world/laravel](https://vagrantcloud.com/o3world/laravel)

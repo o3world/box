@@ -38,4 +38,13 @@ On first boot **configure.sh** adds:
 * creation of 'vanilla' **my.cnf** for MySQL
 * grant of **MySQL** user '**root**' with password '**vagrant**' with broadest privileges
 
-Should it be necessary to rebuild `base.box`, run `DESTROY.sh` to start from scratch.
+----
+To this, **laravel.sh** adds:
+
+* **Composer** and **Laravel**
+* a VirtualHost definition -- `/sync/conf.d/laravel.local.conf`
+* an initial Laravel project with updated `vendor/` packages
+
+----
+Should it be necessary to rebuild `base.box` and `laravel.box`,
+run `DESTROY.sh` to start from scratch.
