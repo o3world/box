@@ -14,7 +14,3 @@ rm -rf packer_cache
 rm -rf output-virtualbox-iso
 rm -rf .vagrant
 rm -rf ../.vagrant
-
-rm -f base.box
-rm -f ../base.box
-rm -f ../laravel.box
