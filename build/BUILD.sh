@@ -12,3 +12,6 @@ vagrant box add --provider virtualbox --name laravel ../base.box
 vagrant up laravel
 
 vagrant package --base laravel --output ../laravel.box
+
+sh DESTROY.sh
+rm -f base.box

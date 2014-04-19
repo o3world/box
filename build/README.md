@@ -46,5 +46,4 @@ To this, **laravel.sh** adds:
 * an initial Laravel project with updated `vendor/` packages
 
 ----
-Should it be necessary to rebuild `base.box` and `laravel.box`,
-run `DESTROY.sh` to start from scratch.
+Use `DESTROY.sh` to remove all artifacts of the builds.

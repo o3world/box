@@ -1,3 +1,5 @@
+sh /etc/netfix.sh
+
 cd /tmp
 
 curl -sS https://getcomposer.org/installer | php
@@ -33,4 +35,5 @@ rm -rf vendor
 chmod -R 777 /sync/laravel
 chmod -R g+s /sync/laravel
 
-sh /etc/netfix.sh
+cd /sync
+tar cvfp /tmp/sync_laravel.tgz conf.d/laravel.local.conf laravel/

@@ -100,6 +100,10 @@ rm -rf /sync/mysql.data/ib_log
 
 mysql -e "GRANT ALL ON *.* TO 'root'@'%' WITH GRANT OPTION; UPDATE mysql.user SET Password = PASSWORD('vagrant') WHERE User='root'; FLUSH PRIVILEGES;" > /dev/null 2>&1
 
+cd /sync
+tar cvfp /tmp/sync_local.tgz conf.d/local.conf
+tar cvfp /tmp/sync_mysql.tgz mysql.data/ib* mysql.data/ib_logfile* mysql.data/ibdata* mysql.data/mysql/ mysql.data/performance_schema/ mysql.data/test/
+
 chkconfig sendmail --add
 chkconfig sendmail on --level 2345
 service sendmail start
