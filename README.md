@@ -25,15 +25,15 @@ To add an *additional* Apache **VirtualHost**:
 * `sudo service httpd restart`
 
 This virtual machine is packaged as `base.box`
-and maintained at [vagrantcloud.com/o3world/base](https://vagrantcloud.com/o3world/base)
-
-To use it, just:
+To use it, open **Terminal**, `su root` then:
 
 `vagrant up`
 
 Once running, if the services need to be restarted, use:
 
 `sudo sh /etc/startup.sh`
+
+from within a `vagrant ssh` session.
 
 ----
 
@@ -46,6 +46,8 @@ A second machine for **Laravel** development is also in place.
 * `sudo sh /etc/startup.sh`
 * [laravel.local](http://laravel.local) should display "You have arrived."
 
-Laravel's **artisan** command-line utility may be used within a `vagrant ssh` session.
+Laravel's **artisan** command-line utility may be used within a `vagrant ssh laravel` session.
 
-This VM is packaged as `laravel.box` and maintained at [vagrantcloud.com/o3world/laravel](https://vagrantcloud.com/o3world/laravel)
+This VM is packaged as `laravel.box`
+To use it, `vagrant up laravel`
+
