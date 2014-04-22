@@ -25,6 +25,7 @@ To add an *additional* Apache **VirtualHost**:
 * `sudo service httpd restart`
 
 This virtual machine is packaged as `base.box`
+
 To use it, open **Terminal**, `su root` then:
 
 `vagrant up`
@@ -49,5 +50,6 @@ A second machine for **Laravel** development is also in place.
 Laravel's **artisan** command-line utility may be used within a `vagrant ssh laravel` session.
 
 This VM is packaged as `laravel.box`
+
 To use it, `vagrant up laravel`
 
