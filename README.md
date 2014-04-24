@@ -30,7 +30,7 @@ To use it, open **Terminal**, `su root` then:
 
 `vagrant up`
 
-Once running, if the services need to be restarted, use:
+Once running, if the services need to be (re)started, use:
 
 `sudo sh /etc/startup.sh`
 

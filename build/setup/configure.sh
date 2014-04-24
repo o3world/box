@@ -128,6 +128,11 @@ chkconfig sendmail on --level 2345
 service sendmail restart
 EOF
 
+cat <<EOF > /etc/init/vagrant-mounted.conf
+start on vagrant-mounted
+exec sudo sh /etc/startup.sh
+EOF
+
 cat <<EOF > /etc/netfix.sh
 rm -f /etc/udev/rules.d/70-persistent-net.rules
 sed -i '/HWADDR/d' /etc/sysconfig/network-scripts/ifcfg-eth0
