@@ -15,7 +15,7 @@ wget http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
 sudo rpm -Uvh remi-release-6*.rpm epel-release-6*.rpm
 
 yum --enablerepo=remi -y update
-yum --enablerepo=remi -y install nfs-utils rpcbind nano httpd mysql mysql-server php php-mysql php-gd php-xml php-mbstring php-mcrypt sendmail git
+yum --enablerepo=remi -y install nfs-utils rpcbind nano httpd mysql mysql-server php php-mysql php-gd php-xml php-mbstring php-mcrypt sendmail git-core
 yum -y clean all
 
 echo "127.0.0.1 local" >> /etc/hosts
