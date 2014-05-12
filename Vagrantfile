@@ -28,6 +28,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 		base.vm.network "private_network", ip: "192.168.200.2"
 		base.vm.network "forwarded_port", guest: 80, host: 8080
 		base.vm.network "forwarded_port", guest: 443, host: 8443
+		base.vm.boot_timeout = 300
 		base.vm.provider :virtualbox do |vb|
 			vb.name = "base"
 		end
@@ -41,6 +42,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 		laravel.vm.network "private_network", ip: "192.168.200.2"
 		laravel.vm.network "forwarded_port", guest: 80, host: 8080
 		laravel.vm.network "forwarded_port", guest: 443, host: 8443
+		laravel.vm.boot_timeout = 300
 		laravel.vm.provider :virtualbox do |vb|
 			vb.name = "laravel"
 		end
