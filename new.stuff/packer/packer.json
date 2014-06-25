@@ -1,0 +1,47 @@
+{
+	"builders": [ {
+		"vm_name": "base",
+		"headless": false,
+		"type": "virtualbox-iso",
+		"guest_os_type": "RedHat_64",
+		"disk_size": 16384,
+		"vboxmanage": [
+			[ "modifyvm", "{{.Name}}", "--memory", "1024" ],
+			[ "modifyvm", "{{.Name}}", "--cpus", "1" ]
+		],
+		"iso_urls": [
+			"http://mirror.stanford.edu/yum/pub/centos/6.5/isos/x86_64/CentOS-6.5-x86_64-minimal.iso",
+			"http://mirrors.rit.edu/centos/6.5/isos/x86_64/CentOS-6.5-x86_64-minimal.iso",
+			"http://centos.supsec.org/6.5/isos/x86_64/CentOS-6.5-x86_64-minimal.iso",
+			"http://mirror.rackspace.com/CentOS/6.5/isos/x86_64/CentOS-6.5-x86_64-minimal.iso",
+			"http://mirror.nexcess.net/CentOS/6.5/isos/x86_64/CentOS-6.5-x86_64-minimal.iso",
+			"http://mirror.cogentco.com/pub/linux/centos/6.5/isos/x86_64/CentOS-6.5-x86_64-minimal.iso"
+		],
+		"iso_checksum": "f9d84907d77df62017944cb23cab66305e94ee6ae6c1126415b81cc5e999bdd0",
+		"iso_checksum_type": "sha256",
+		"http_directory": "kickstart/",
+		"boot_wait": "10s",
+		"boot_command": [
+			"<tab> text ks=http://{{.HTTPIP}}:{{.HTTPPort}}/kickstart.cfg<enter><wait>"
+		],
+		"ssh_username": "vagrant",
+		"ssh_password": "vagrant",
+		"ssh_wait_timeout": "30m",
+		"shutdown_command": "echo 'vagrant'|sudo -S /sbin/halt -h -p"
+	} ],
+	"provisioners": [ {
+		"type": "shell",
+		"scripts": [
+			"setup/setup.sh"
+		],
+		"override": {
+			"virtualbox-iso": {
+				"execute_command": "echo 'vagrant'|sudo -S sh '{{.Path}}'"
+			}
+		}
+	} ],
+	"post-processors": [ {
+		"type": "vagrant",
+		"output": "base.box"
+	} ]
+}
