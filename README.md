@@ -35,6 +35,6 @@ Once running, if the services need to be (re)started, use:
 `sudo sh /etc/start.sh` from within a `vagrant ssh` session.
 
 ----
-The **screen** utility may be used **NodeJS** applications in a `vagrant ssh` session.
+The **screen** utility may be used to spawn **NodeJS** applications in a `vagrant ssh` session.
 
 Similarly, the **artisan** tool for **Laravel** may be used in a terminal session.
