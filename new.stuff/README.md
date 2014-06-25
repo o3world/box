@@ -1,7 +1,7 @@
 new.stuff
 ====
 
-**a Fork of the original repo to fix the 'root' login requirement**
+**a fork of the original repo to fix the 'root' login requirement**
 
 ----
 
@@ -21,5 +21,5 @@ Cmnd_Alias VAGRANT_EXPORTS_REMOVE = /usr/bin/sed -E -e /*/ d -ibak /etc/exports
 
 * TODO: Merge this into original repo
 * TODO: get $USER variable to output correctly in vagrantfile so it doenst need to be hardcoded.
-* TODO: provide better documentation on how this works
+* TODO: provide better documentation on how/why this works
 * TODO: update URL for base.box in vagrantfile
