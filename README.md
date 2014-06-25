@@ -1,55 +1,40 @@
-base-box
+box
 ====
 
-**CentOS 6.5 64-bit LAMP**
-
-----
-
-a **CentOS** virtual machine ideal for local development
+**CentOS 6.5 64-bit LAMP** virtual machine ideal for local development
 
 * **Remi** and **EPEL** repositories for **Yum**
-* **NFS**, **Apache** 2, **MySQL** 5, **Sendmail**, **Git**
-* **PHP** 5.4 w/ extensions **mysql** **gd** **xml** **mbstring** **mcrypt**
+* **NFS**, **Sendmail**, **Git**
+* **Apache** 2, **MySQL** 5
+* **PHP** 5 w/ extensions **mysql** **gd** **xml** **mbstring** **mcrypt**
+* **NodeJS**, **NPM**, **Composer**, **Laravel** 4
 
-Connectivity to VM's servers, **from Host**:
+----
+Connectivity to VM's services, **from Host**:
 
 * add to */etc/hosts* -- `192.168.200.2 local`
-* NFS-sync'd folder created by Vagrant -- `/sync`
+* NFS-sync'd folder created by Vagrant -- `~/sync`
 * database -- `mysql -h192.168.200.2 -uroot -pvagrant`
+* as an alternate to 80 and 443, port 8081 is "open" for TCP requests
 
-To add an *additional* Apache **VirtualHost**:
+----
+To add an Apache **VirtualHost**:
 
 * add to */etc/hosts* -- `192.168.200.2 example.local`
-* *VirtualHost* definition -- `/sync/conf.d/example.local.conf`
+* *VirtualHost* definition -- `~/sync/conf.d/example.local.conf`
 * `vagrant ssh`
 * `sudo service httpd restart`
 
-This virtual machine is packaged as `base.box`
+----
+This VM is packaged as `base.box`
 
-To use it, open **Terminal**, `su root` then:
-
-`vagrant up`
+To use it, open **Terminal**, `cd box` then: `vagrant up`
 
 Once running, if the services need to be (re)started, use:
 
-`sudo sh /etc/startup.sh`
-
-from within a `vagrant ssh` session.
+`sudo sh /etc/start.sh` from within a `vagrant ssh` session.
 
 ----
+The **screen** utility may be used **NodeJS** applications in a `vagrant ssh` session.
 
-A second machine for **Laravel** development is also in place.
-
-* *vhost* should already exist  -- `/sync/conf.d/laravel.local.conf`
-* add to */etc/hosts* -- `192.168.200.2 laravel
-* `vagrant up laravel`
-* `vagrant ssh laravel`
-* `sudo sh /etc/startup.sh`
-* [laravel.local](http://laravel.local) should display "You have arrived."
-
-Laravel's **artisan** command-line utility may be used within a `vagrant ssh laravel` session.
-
-This VM is packaged as `laravel.box`
-
-To use it, `vagrant up laravel`
-
+Similarly, the **artisan** tool for **Laravel** may be used in a terminal session.
