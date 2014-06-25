@@ -12,7 +12,7 @@ You'll need to do this to get this VM running:
 * vagrant plugin install vagrant-bindfs
 * hardcode your host home directory in vagrantfile for now
 
-Optional but recommended so you don't have to provide local sudo credentials everytime vagrant wants to modify /etc/exports, add to /etc/sudoers file:
+Optional but recommended so you don't have to provide host machine sudo credentials everytime vagrant wants to modify /etc/exports on the host machine, add to /etc/sudoers file:
 
 Cmnd_Alias VAGRANT_EXPORTS_ADD = /usr/bin/tee -a /etc/exports
 Cmnd_Alias VAGRANT_NFSD = /sbin/nfsd restart
