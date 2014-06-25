@@ -20,6 +20,6 @@ Cmnd_Alias VAGRANT_EXPORTS_REMOVE = /usr/bin/sed -E -e /*/ d -ibak /etc/exports
 %admin ALL=(root) NOPASSWD: VAGRANT_EXPORTS_ADD, VAGRANT_NFSD, VAGRANT_EXPORTS_REMOVE
 
 * TODO: Merge this into original repo
-* TODO: get $USER variable to output correctly in vagrantfile so it doenst need to be hardcoded.
+* TODO: get $USER variable to output correctly in vagrantfile so it doesn't need to be hardcoded.
 * TODO: provide better documentation on how/why this works
 * TODO: update URL for base.box in vagrantfile
