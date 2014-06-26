@@ -48,20 +48,24 @@ iptables -I INPUT -p tcp --dport 3306 -j ACCEPT
 iptables -I INPUT -p tcp --dport 8081 -j ACCEPT
 service iptables save
 
-mkdir /sync > /dev/null 2>&1
+cat <<EOF > /etc/start_netfix.sh
+rm -f /etc/udev/rules.d/70-persistent-net.rules
+sed -i '/HWADDR/d' /etc/sysconfig/network-scripts/ifcfg-eth0
+sed -i '/UUID/d' /etc/sysconfig/network-scripts/ifcfg-eth0
+rm -f /etc/sysconfig/network-scripts/ifcfg-eth1
+EOF
 
-mkdir /sync/conf.d > /dev/null 2>&1
+sh /etc/start_netfix.sh
 
 cat <<EOF >> /etc/httpd/conf/httpd.conf
 ServerName local:80
 ServerName local:443
 NameVirtualHost *:80
 NameVirtualHost *:443
-Include /sync/conf.d/*.conf
 EOF
 
-cat <<EOF > /sync/conf.d/local.conf
-<VirtualHost *:80>
+cat <<EOF > /etc/httpd/conf.d/local.conf
+<VirtualHost *:80 :*443>
     DocumentRoot /sync
     ServerName local
     ErrorLog logs/error_log
@@ -70,29 +74,7 @@ cat <<EOF > /sync/conf.d/local.conf
         Options All -Includes -ExecCGI -Indexes +MultiViews
         AllowOverride All
     </Directory>
-    <Directory "/sync/conf.d">
-        Order Deny,Allow
-        Deny from All
-    </Directory>
 </VirtualHost>
-<VirtualHost *:443>
-    DocumentRoot /sync
-    ServerName local
-    ErrorLog logs/error_log
-    CustomLog logs/access_log common
-    <Directory "/sync">
-        Options All -Includes -ExecCGI -Indexes +MultiViews
-        AllowOverride All
-    </Directory>
-    <Directory "/sync/conf.d">
-        Order Deny,Allow
-        Deny from All
-    </Directory>
-</VirtualHost>
-EOF
-
-cat <<EOF > /sync/info.php
-<?php phpinfo( );
 EOF
 
 cat <<EOF > /etc/start_httpd.sh
@@ -100,8 +82,6 @@ chkconfig httpd --add
 chkconfig httpd on --level 2345
 service httpd start
 EOF
-
-sh /etc/start_httpd.sh
 
 cat <<EOF > /etc/my.cnf
 [mysqld]
@@ -124,18 +104,14 @@ sh /etc/start_mysql.sh
 
 mysql -e "GRANT ALL ON *.* TO 'root'@'%' WITH GRANT OPTION; UPDATE mysql.user SET Password = PASSWORD('vagrant') WHERE User='root'; FLUSH PRIVILEGES;" > /dev/null 2>&1
 
-cd /sync
-tar cvfp /tmp/sync_local.tgz conf.d/local.conf info.php
-
 cat <<EOF > /etc/start_sendmail.sh
 chkconfig sendmail --add
 chkconfig sendmail on --level 2345
 service sendmail start
 EOF
 
-sh /etc/start_sendmail.sh
-
 cat <<EOF > /etc/start.sh
+sudo sh /etc/start_netfix.sh
 sudo sh /etc/start_httpd.sh
 sudo sh /etc/start_mysql.sh
 sudo sh /etc/start_sendmail.sh
@@ -145,12 +121,3 @@ cat <<EOF > /etc/init/vagrant-mounted.conf
 start on vagrant-mounted
 exec sudo sh /etc/start.sh
 EOF
-
-cat <<EOF > /etc/netfix.sh
-rm -f /etc/udev/rules.d/70-persistent-net.rules
-sed -i '/HWADDR/d' /etc/sysconfig/network-scripts/ifcfg-eth0
-sed -i '/UUID/d' /etc/sysconfig/network-scripts/ifcfg-eth0
-rm -f /etc/sysconfig/network-scripts/ifcfg-eth1
-EOF
-
-sh /etc/netfix.sh

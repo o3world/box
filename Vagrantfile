@@ -3,13 +3,6 @@
 
 VAGRANTFILE_API_VERSION = "2"
 
-PROVISION_INLINE = <<EOF
-cd /sync
-if [ ! -f conf.d/local.conf ]; then
-	tar xvfp /tmp/sync_local.tgz
-fi
-EOF
-
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
 	config.vm.define "base", primary: true do |base|
@@ -23,7 +16,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 		base.vm.provider :virtualbox do |vb|
 			vb.name = "base"
 		end
-		base.vm.provision :shell, inline: PROVISION_INLINE
 	end
 
 end

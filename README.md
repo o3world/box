@@ -21,18 +21,14 @@ Connectivity to VM's services, **from Host**:
 To add an Apache **VirtualHost**:
 
 * add to */etc/hosts* -- `192.168.200.2 example.local`
-* *VirtualHost* definition -- `~/sync/conf.d/example.local.conf`
 * `vagrant ssh`
+* add *VirtualHost* definition -- `/etc/httpd/conf.d/example.local.conf`
 * `sudo service httpd restart`
 
 ----
 This VM is packaged as `base.box`
 
 To use it, open **Terminal**, `cd box` then: `vagrant up`
-
-Once running, if the services need to be (re)started, use:
-
-`sudo sh /etc/start.sh` from within a `vagrant ssh` session.
 
 ----
 The **screen** utility may be used to spawn **NodeJS** applications in a `vagrant ssh` session.
