@@ -15,7 +15,7 @@ wget http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
 sudo rpm -Uvh remi-release-6*.rpm epel-release-6*.rpm
 
 yum --enablerepo=remi -y update
-yum --enablerepo=remi -y install nfs-utils rpcbind nano screen httpd mysql mysql-server php php-mysql php-gd php-xml php-mbstring php-mcrypt sendmail git-core nodejs npm
+yum --enablerepo=remi -y install nfs-utils rpcbind nano screen httpd mod_ssl mysql mysql-server php php-mysql php-gd php-xml php-mbstring php-mcrypt sendmail git-core nodejs npm rubygems
 yum -y clean all
 
 curl -sS https://getcomposer.org/installer | php
@@ -25,6 +25,10 @@ composer self-update
 
 curl -sS http://laravel.com/laravel.phar -o /usr/local/bin/laravel
 chmod 755 /usr/local/bin/laravel
+
+gem install sass
+npm install -g clean-css
+npm install -g uglify-js
 
 echo "127.0.0.1 local" >> /etc/hosts
 
@@ -62,18 +66,45 @@ ServerName local:80
 ServerName local:443
 NameVirtualHost *:80
 NameVirtualHost *:443
+<Location />
+    SetOutputFilter DEFLATE
+    SetEnvIfNoCase Request_URI .(?:gif|jpe?g|png|ico|zip|tgz|tar)$ no-gzip dont-vary
+</Location>
 EOF
 
-cat <<EOF > /etc/httpd/conf.d/local.conf
-<VirtualHost *:80 :*443>
-    DocumentRoot /sync
-    ServerName local
-    ErrorLog logs/error_log
-    CustomLog logs/access_log common
-    <Directory "/sync">
-        Options All -Includes -ExecCGI -Indexes +MultiViews
-        AllowOverride All
-    </Directory>
+cat <<EOF >> /etc/php.ini
+date.timezone = America/New_York
+zlib.output_compression = On
+EOF
+
+cd /etc/httpd/conf.d
+mkdir local
+cd local
+cat <<EOF > config.shared
+DocumentRoot /sync
+ServerName local
+ErrorLog logs/error_log
+CustomLog logs/access_log common
+<Directory "/sync">
+    Options All -Includes -ExecCGI -Indexes +MultiViews
+    AllowOverride All
+</Directory>
+EOF
+openssl genrsa -aes256 -passout pass:qwertyuiop -out server.key 4096
+openssl req -new -key server.key -passin pass:qwertyuiop -out server.csr -subj '/C=US/ST=Pennsylvania/L=Philadelphia/CN=local'
+openssl rsa -in server.key -passin pass:qwertyuiop -out server.key
+openssl x509 -req -days 1825 -in server.csr -signkey server.key -out server.crt
+
+cd ..
+cat <<EOF > local.conf
+<VirtualHost *:80>
+    Include conf.d/local/config.shared
+</VirtualHost>
+<VirtualHost *:443>
+    Include conf.d/local/config.shared
+    SSLEngine on
+    SSLCertificateFile conf.d/local/server.crt
+    SSLCertificateKeyFile conf.d/local/server.key
 </VirtualHost>
 EOF
 

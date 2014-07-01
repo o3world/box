@@ -20,11 +20,13 @@ Features of **install.sh**:
 
 * create '**root**' user with password '**vagrant**'
 * obtain **Remi** and **EPEL** repository database information
-* install LAMP-related daemons -- **NFS**, **Apache**, **MySQL**, **Sendmail**, **Git**
-* in addition, install **NodeJS** and **NPM**, **Composer** and **Laravel**
+* install LAMP-related daemons -- **NFS**, **Apache** w/ **mod_ssl**, **MySQL**, **Sendmail**, **Git**
+* in addition, install **NodeJS**, **NPM**, **rubygems**, **Composer**, **Laravel**
 * install **PHP** w/ extensions **mysql** **gd** **xml** **mbstring** **mcrypt**
 * iptables configuration -- granting 'outside' access to ports **80**, **8081**, **443** and **3306**
-* creation of default **VirtualHost**
+* modify **httpd.conf** to listen on ports 80 and 443, and to enable **mod_deflate** (gzip compression)
+* modify **php.ini** to set timezone to *America/New_York* and to enable *zlib.output_compression*
+* creation of default **VirtualHost** w/ a self-signed SSL certificate
 * creation of 'vanilla' **my.cnf** for MySQL
 * grant of **MySQL** user '**root**' with password '**vagrant**' with broadest privileges
 
