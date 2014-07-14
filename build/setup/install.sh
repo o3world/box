@@ -77,6 +77,11 @@ date.timezone = America/New_York
 zlib.output_compression = On
 EOF
 
+cat <<EOF >> /etc/httpd/conf.d/php.conf
+php_value upload_max_filesize 64M
+php_value post_max_size 80M
+EOF
+
 cd /etc/httpd/conf.d
 mkdir local
 cd local
