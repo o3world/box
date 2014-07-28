@@ -3,6 +3,14 @@
 
 VAGRANTFILE_API_VERSION = "2"
 
+pubKeyFile = 'id_rsa.pub'
+pubKeyPath = ENV['HOME'] + '/.ssh/' + pubKeyFile
+if File.exist?( pubKeyPath )
+	baseMachine = '.vagrant/machines/base/virtualbox'
+	FileUtils.cp( pubKeyPath, baseMachine )
+	pubKeyForRoot = 'cat /vagrant/' + baseMachine + '/' + pubKeyFile + ' > /root/.ssh/authorized_keys'
+end
+
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
 	config.vm.define "base", primary: true do |base|
@@ -16,6 +24,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 		base.vm.provider :virtualbox do |vb|
 			vb.name = "base"
 		end
+		base.vm.provision :shell, inline: pubKeyForRoot
 	end
 
 end
