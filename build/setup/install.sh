@@ -125,6 +125,7 @@ datadir=/var/lib/mysql
 socket=/var/lib/mysql/mysql.sock
 user=mysql
 symbolic-links=0
+max_allowed_packet=128M
 [mysqld_safe]
 log-error=/var/log/mysqld.log
 pid-file=/var/run/mysqld/mysqld.pid
