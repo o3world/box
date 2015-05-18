@@ -1,5 +1,7 @@
-TO BE CONSIDERED OBSOLETE
-Please refer to:
+OBSOLETE. DO NOT USE!
+===
+
+**Please refer to:**
 https://github.com/o3world/dev
 ====
 
