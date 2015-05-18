@@ -5,7 +5,7 @@ OBSOLETE. DO NOT USE!
 https://github.com/o3world/dev
 ====
 
-box
+~~box~~
 ====
 
 **CentOS 6.5 64-bit LAMP** virtual machine ideal for local development
